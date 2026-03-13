@@ -13,8 +13,9 @@ def add_task(task):
 
 def list_tasks():
     with open(TASK_FILE, "r") as file:
-        tasks = file.readlines()
-    return tasks
+        tasks = [line.strip() for line in file]
+        numbered_tasks = [f"{i}. {task}" for i, task in enumerate(tasks, start=1)]
+        return "\n".join(numbered_tasks)
 
 
 def remove_task(index):
