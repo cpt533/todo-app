@@ -13,12 +13,13 @@ def add_task(task):
 
 
 def list_tasks():
-    if os.path.exists(TASK_FILE):
-        with open(TASK_FILE, "r") as file:
-            tasks = [line.strip() for line in file]
-            numbered_tasks = [f"{i}. {task}" for i, task in enumerate(tasks, start=1)]
-            return "\n".join(numbered_tasks)
-    return ""
+    if not os.path.exists(TASK_FILE):
+        return ""
+
+    with open(TASK_FILE, "r") as file:
+        tasks = [line.strip() for line in file]
+
+    return "\n".join(f"{i}. {task}" for i, task in enumerate(tasks, start=1))
 
 
 def remove_task(index):
