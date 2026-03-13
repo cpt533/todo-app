@@ -1,4 +1,5 @@
 import argparse
+import os
 
 TASK_FILE = ".tasks.txt"
 
@@ -12,10 +13,12 @@ def add_task(task):
 
 
 def list_tasks():
-    with open(TASK_FILE, "r") as file:
-        tasks = [line.strip() for line in file]
-        numbered_tasks = [f"{i}. {task}" for i, task in enumerate(tasks, start=1)]
-        return "\n".join(numbered_tasks)
+    if os.path.exists(TASK_FILE):
+        with open(TASK_FILE, "r") as file:
+            tasks = [line.strip() for line in file]
+            numbered_tasks = [f"{i}. {task}" for i, task in enumerate(tasks, start=1)]
+            return "\n".join(numbered_tasks)
+    return ""
 
 
 def remove_task(index):
