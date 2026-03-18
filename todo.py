@@ -23,7 +23,19 @@ def list_tasks():
 
 
 def remove_task(index):
-    return
+    if not os.path.exists(TASK_FILE):
+        print("No tasks found.")
+        return
+
+    with open(TASK_FILE, "r", encoding="utf-8") as file:
+        tasks = file.readlines()
+
+    with open(TASK_FILE, "w", encoding="utf-8") as file:
+        for i, task in enumerate(tasks, start=1):
+            if i != index:
+                file.write(task)
+
+    print("Task removed.")
 
 
 def main():
