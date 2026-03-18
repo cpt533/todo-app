@@ -5,11 +5,8 @@ TASK_FILE = ".tasks.txt"
 
 
 def add_task(task):
-    """Function: add_task
-
-    Input - a task to add to the list
-    Return - nothing
-    """
+    with open(TASK_FILE, "a", encoding="utf-8") as file:
+        file.write(task + "\n")
 
 
 def list_tasks():
