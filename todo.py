@@ -1,3 +1,9 @@
+"""
+todo.py is a to-do list application
+uses the command line, storing list as text file.
+Users can add, list or remove tasks
+"""
+
 import argparse
 import os
 
@@ -5,21 +11,32 @@ TASK_FILE = ".tasks.txt"
 
 
 def add_task(task):
+    """
+    Function: add_task
+    Input - a task for to-do list
+    Return - none
+    """
     with open(TASK_FILE, "a", encoding="utf-8") as file:
         file.write(task + "\n")
 
 
 def list_tasks():
+    """
+    Function: list_tasks
+    Input - none
+    Return - a numbered string of the tasks
+    """
     if not os.path.exists(TASK_FILE):
         return ""
 
-    with open(TASK_FILE, "r") as file:
+    with open(TASK_FILE, "r", encoding="utf-8") as file:
         tasks = [line.strip() for line in file]
 
     return "\n".join(f"{i}. {task}" for i, task in enumerate(tasks, start=1))
 
 
 def remove_task(index):
+    """Remove item using Index from task file."""
     if not os.path.exists(TASK_FILE):
         print("No tasks found.")
         return
@@ -35,7 +52,25 @@ def remove_task(index):
     print("Task removed.")
 
 
+def remove_word(word):
+    """Remove item using item name from task file."""
+    if not os.path.exists(TASK_FILE):
+        print("No tasks found.")
+        return
+
+    with open(TASK_FILE, "r", encoding="utf-8") as file:
+        tasks = file.readlines()
+
+    with open(TASK_FILE, "w", encoding="utf-8") as file:
+        for i, task in enumerate(tasks, start=1):
+            if word not in task:
+                file.write(task)
+
+    print("Task removed.")
+
+
 def main():
+    """Parse arguments."""
     parser = argparse.ArgumentParser(description="Command-line Todo List")
     parser.add_argument("-a", "--add", help="Add a new task")
     parser.add_argument("-l", "--list", action="store_true", help="List all tasks")
