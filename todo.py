@@ -35,7 +35,7 @@ def list_tasks():
     return "\n".join(f"{i}. {task}" for i, task in enumerate(tasks, start=1))
 
 
-def remove_task(index):
+def remove_task(index: int):
     """Remove item using Index from task file."""
     if not os.path.exists(TASK_FILE):
         print("No tasks found.")
@@ -52,7 +52,7 @@ def remove_task(index):
     print("Task removed.")
 
 
-def remove_word(word):
+def remove_word(word: str):
     """Remove item using item name from task file."""
     if not os.path.exists(TASK_FILE):
         print("No tasks found.")
@@ -62,7 +62,7 @@ def remove_word(word):
         tasks = file.readlines()
 
     with open(TASK_FILE, "w", encoding="utf-8") as file:
-        for i, task in enumerate(tasks, start=1):
+        for task in tasks:
             if word not in task:
                 file.write(task)
 
@@ -75,6 +75,7 @@ def main():
     parser.add_argument("-a", "--add", help="Add a new task")
     parser.add_argument("-l", "--list", action="store_true", help="List all tasks")
     parser.add_argument("-r", "--remove", help="Remove a task by index")
+    parser.add_argument("-w", "--word", help="Remove a task by word")
 
     args = parser.parse_args()
 
@@ -85,6 +86,8 @@ def main():
         print(tasks)
     elif args.remove:
         remove_task(int(args.remove))
+    elif args.word:
+        remove_word(args.word)
     else:
         parser.print_help()
 
