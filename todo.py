@@ -36,7 +36,11 @@ def list_tasks():
 
 
 def remove_task(index: int):
-    """Remove item using Index from task file."""
+    """
+    Function: remove_task
+    Input - int, the index of task to remove
+    Return - none
+    """
     if not os.path.exists(TASK_FILE):
         print("No tasks found.")
         return
@@ -53,7 +57,12 @@ def remove_task(index: int):
 
 
 def remove_word(word: str):
-    """Remove item using item name from task file."""
+    """
+    Function: remove_word
+    Input - str, word of task on task list
+    Return - none
+
+    """
     if not os.path.exists(TASK_FILE):
         print("No tasks found.")
         return
